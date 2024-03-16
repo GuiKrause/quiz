@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:quiz/data/questions.dart';
 import 'package:quiz/questions_screen.dart';
 import 'package:quiz/start_screen.dart';
 
-class Quiz extends StatefulWidget{
+class Quiz extends StatefulWidget {
   const Quiz({super.key});
 
   @override
@@ -11,14 +12,14 @@ class Quiz extends StatefulWidget{
   }
 }
 
-class _QuizState extends State<Quiz>{
-  final List<String> selectedAwnsers = [];
+class _QuizState extends State<Quiz> {
+  List<String> selectedAwnsers = [];
   var activeScreen = 'start-screen';
 
   // This commented code below it's another
   // aproach to render other screen using
   // the initState() metod. It's kind verbose
-  // and use life cicle methods.  
+  // and use life cicle methods.
 
   // @override
   // void initState() {
@@ -28,6 +29,13 @@ class _QuizState extends State<Quiz>{
 
   void chooseAwnser(String awnser) {
     selectedAwnsers.add(awnser);
+
+    if (selectedAwnsers.length == questions.length) {
+      selectedAwnsers = [];
+      setState(() {
+        activeScreen = 'start-screen';
+      });
+    }
   }
 
   void switchScreen() {
@@ -35,11 +43,9 @@ class _QuizState extends State<Quiz>{
       activeScreen = 'questions-screen';
     });
   }
-  
 
   @override
   Widget build(context) {
-
     Widget screenWidget = StartScreen(switchScreen);
 
     if (activeScreen == 'questions-screen') {
@@ -47,14 +53,14 @@ class _QuizState extends State<Quiz>{
     }
 
     return MaterialApp(
-    home: Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          color: Color.fromARGB(255, 122, 17, 221),
+      home: Scaffold(
+        body: Container(
+          decoration: const BoxDecoration(
+            color: Color.fromARGB(255, 122, 17, 221),
+          ),
+          child: screenWidget,
         ),
-        child: screenWidget,
       ),
-    ),
-  );
+    );
   }
 }
