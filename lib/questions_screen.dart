@@ -4,7 +4,9 @@ import 'package:quiz/data/questions.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class QuestionsScreen extends StatefulWidget {
-  const QuestionsScreen({super.key});
+  const QuestionsScreen({super.key, required this.onSelectAwnser});
+
+  final void Function(String awnser) onSelectAwnser;
 
   @override
   State<QuestionsScreen> createState() {
@@ -15,7 +17,8 @@ class QuestionsScreen extends StatefulWidget {
 class _QuestionsScreenState extends State<QuestionsScreen> {
   var currentAwnserQuestion = 0;
 
-  void awnserQuestion() {
+  void awnserQuestion(String selectedAwnser) {
+    widget.onSelectAwnser(selectedAwnser);
     setState(() {
       currentAwnserQuestion++;
     });
@@ -46,7 +49,13 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
               height: 30,
             ),
             ...currentQuestion.getShuffledList().map((awnser) {
-              return AwnserButton(awnserText: awnser, onTap: awnserQuestion);
+              return AwnserButton(
+                awnserText: awnser,
+                onTap: () {
+                  awnserQuestion(awnser);
+                  print(awnser);
+                },
+              );
             })
           ],
         ),

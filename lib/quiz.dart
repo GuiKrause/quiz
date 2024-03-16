@@ -12,6 +12,7 @@ class Quiz extends StatefulWidget{
 }
 
 class _QuizState extends State<Quiz>{
+  final List<String> selectedAwnsers = [];
   var activeScreen = 'start-screen';
 
   // This commented code below it's another
@@ -24,6 +25,10 @@ class _QuizState extends State<Quiz>{
   //   super.initState();
   //   activeScreen = StartScreen(switchScreen);
   // }
+
+  void chooseAwnser(String awnser) {
+    selectedAwnsers.add(awnser);
+  }
 
   void switchScreen() {
     setState(() {
@@ -38,7 +43,7 @@ class _QuizState extends State<Quiz>{
     Widget screenWidget = StartScreen(switchScreen);
 
     if (activeScreen == 'questions-screen') {
-      screenWidget = const QuestionsScreen();
+      screenWidget = QuestionsScreen(onSelectAwnser: chooseAwnser);
     }
 
     return MaterialApp(
