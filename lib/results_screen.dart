@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz/data/questions.dart';
+import 'package:quiz/questions_summary.dart';
 
 class ResultsScreen extends StatelessWidget {
   ResultsScreen(
@@ -26,6 +28,12 @@ class ResultsScreen extends StatelessWidget {
 
   @override
   Widget build(context) {
+    final summaryData = getSummaryData();
+    final numTotalQuestions = questions.length;
+    final numCorrectAwnsers = summaryData.where((data) {
+      return data['user_awnser'] == data['correct_awnser'];
+    }).length;
+
     return SizedBox(
       width: double.infinity,
       child: Container(
@@ -33,11 +41,19 @@ class ResultsScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('You awnsered X out of Y questions correctly'),
+            Text(
+              'You awnsered $numCorrectAwnsers out of $numTotalQuestions questions correctly',
+              style: GoogleFonts.lato(
+                color: const Color.fromARGB(255, 208, 170, 255),
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+              textAlign: TextAlign.center,
+            ),
             const SizedBox(
               height: 30,
             ),
-            const Text('List of Awnsers and Questions'),
+            QuestionsSummary(summaryData),
             const SizedBox(
               height: 30,
             ),

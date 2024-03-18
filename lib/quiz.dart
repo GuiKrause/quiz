@@ -32,7 +32,6 @@ class _QuizState extends State<Quiz> {
     selectedAwnsers.add(awnser);
 
     if (selectedAwnsers.length == questions.length) {
-      selectedAwnsers = [];
       setState(() {
         activeScreen = 'results-screen';
       });
@@ -47,6 +46,7 @@ class _QuizState extends State<Quiz> {
 
   void restartQuiz() {
     setState(() {
+      selectedAwnsers = [];
       activeScreen = 'start-screen';
     });
   }
