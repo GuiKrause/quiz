@@ -45,7 +45,7 @@ class ResultsScreen extends StatelessWidget {
               'You awnsered $numCorrectAwnsers out of $numTotalQuestions questions correctly',
               style: GoogleFonts.lato(
                 color: const Color.fromARGB(255, 208, 170, 255),
-                fontSize: 24,
+                fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
               textAlign: TextAlign.center,
@@ -57,10 +57,21 @@ class ResultsScreen extends StatelessWidget {
             const SizedBox(
               height: 30,
             ),
-            ElevatedButton(
+            OutlinedButton.icon(
               onPressed: restartQuiz,
-              child: const Text('Restart Quiz!'),
-            ),
+              style: OutlinedButton.styleFrom(
+                shape: const ContinuousRectangleBorder(),
+                side: const BorderSide(style: BorderStyle.none)
+              ),
+              label: const Text(
+                'Restart Quiz!',
+                style: TextStyle(color: Colors.white),
+              ),
+              icon: const Icon(
+                Icons.restart_alt,
+                color: Colors.white,
+              ),
+            )
           ],
         ),
       ),

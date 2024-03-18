@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class QuestionsSummary extends StatelessWidget {
@@ -11,18 +9,38 @@ class QuestionsSummary extends StatelessWidget {
   @override
   Widget build(context) {
     return SizedBox(
-      height: 300,
+      height: 400,
       child: SingleChildScrollView(
         child: Column(
           children: summaryData.map(
             (data) {
+              const correct = Color.fromARGB(255, 151, 207, 255);
+              const wrong = Color.fromARGB(255, 253, 128, 255);
+              final Color shapeColor =
+                  data['user_awnser'] == data['correct_awnser']
+                      ? correct
+                      : wrong;
+
               return Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    ((data['question_index'] as int) + 1).toString(),
+                  Expanded(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: shapeColor,
+                        shape: BoxShape.circle,
+                      ),
+                      padding: const EdgeInsets.all(4.0),
+                      child: Text(
+                        ((data['question_index'] as int) + 1).toString(),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
                   ),
                   Expanded(
+                    flex: 5,
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           data['question'] as String,
@@ -31,7 +49,6 @@ class QuestionsSummary extends StatelessWidget {
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                           ),
-                          textAlign: TextAlign.start,
                         ),
                         const SizedBox(
                           height: 5,
@@ -43,7 +60,6 @@ class QuestionsSummary extends StatelessWidget {
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
                           ),
-                          textAlign: TextAlign.start,
                         ),
                         Text(
                           data['correct_awnser'] as String,
@@ -52,7 +68,6 @@ class QuestionsSummary extends StatelessWidget {
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
                           ),
-                          textAlign: TextAlign.start,
                         ),
                       ],
                     ),
