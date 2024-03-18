@@ -53,7 +53,6 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                 awnserText: awnser,
                 onTap: () {
                   awnserQuestion(awnser);
-                  print(awnser);
                 },
               );
             })
